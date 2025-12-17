@@ -1,0 +1,100 @@
+{% extends 'cbase.html' %}
+{% block title %}Profile | UNITI{% endblock %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto px-4 pt-10">
+
+    <!-- Profile Card -->
+    <div class="border rounded-2xl p-6 shadow-sm bg-white">
+
+        <!-- Avatar and Name -->
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+            <div class="w-24 h-24 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold">
+                A
+            </div>
+            <div class="flex-1 text-center sm:text-left">
+                <h2 class="mt-2 sm:mt-0 text-2xl font-semibold text-gray-900">
+                    Abhinav M
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">abhinav@email.com</p>
+                <p class="text-sm text-gray-500 mt-1">UI/UX Designer</p>
+            </div>
+
+            <!-- Edit Button -->
+            <a href=""
+               class="mt-4 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+                <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Profile
+            </a>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+
+            <div>
+                <h3 class="font-medium text-gray-900">Education</h3>
+                <p>Bachelor of Design, NIFT, 2020</p>
+            </div>
+
+            <div>
+                <h3 class="font-medium text-gray-900">Experience</h3>
+                <p>3 Years in UI/UX Design</p>
+            </div>
+
+            <div>
+                <h3 class="font-medium text-gray-900">Location</h3>
+                <p>Dubai</p>
+            </div>
+
+            <div>
+                <h3 class="font-medium text-gray-900">Phone</h3>
+                <p>+91 98765 43210</p>
+            </div>
+
+        </div>
+
+        <!-- Resume Download -->
+        <div class="mt-6 border-t pt-4">
+            <h3 class="font-medium text-gray-900 mb-2">Resume</h3>
+            <a href="/media/dummy_resume.pdf" target="_blank"
+               class="inline-flex items-center gap-2 text-blue-600 font-medium hover:underline">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+                Download Resume
+            </a>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="mt-6 border-t pt-4 divide-y rounded-xl overflow-hidden">
+            <a href="{% url 'candidate-joblist' %}"
+               class="flex items-center justify-between px-5 py-4 text-sm font-medium hover:bg-gray-50 transition">
+                <span class="flex items-center gap-3">
+                    <i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i>
+                    Job List
+                </span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+
+            <a href="{% url 'candidate-jobappliedlist' %}"
+               class="flex items-center justify-between px-5 py-4 text-sm font-medium hover:bg-gray-50 transition">
+                <span class="flex items-center gap-3">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-blue-600"></i>
+                    Applied Jobs
+                </span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+        </div>
+
+        <!-- Logout -->
+        <div class="mt-6">
+            <a href=""
+               class="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-red-500 text-red-600 font-medium hover:bg-red-50 transition">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                Logout
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

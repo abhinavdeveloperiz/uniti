@@ -1,0 +1,106 @@
+{% extends 'cbase.html' %}
+{% block title %}Register | UNITI{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-10">
+
+    <div class="w-full max-w-xl bg-white rounded-2xl shadow-md p-8 sm:p-12">
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6">Create Your Account</h2>
+        <p class="text-sm text-gray-500 text-center mb-8">Fill in your details to get started</p>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+
+            <!-- Full Name -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                <input type="text" name="full_name" required
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="email" required
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" name="password1" required
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" name="password2" required
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Designation -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Designation</label>
+                <input type="text" name="designation"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Education -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Education</label>
+                <input type="text" name="education"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Experience -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Experience (Years)</label>
+                <input type="number" name="experience" min="0"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Phone -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Phone</label>
+                <input type="tel" name="phone"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Location -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Location</label>
+                <input type="text" name="location"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <!-- Resume Upload -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Upload Resume (PDF)</label>
+                <input type="file" name="resume" accept=".pdf"
+                       class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-blue-50 file:text-blue-600 file:rounded-lg hover:file:bg-blue-100 cursor-pointer">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-6">
+                <button type="submit"
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition">
+                    Register
+                </button>
+            </div>
+
+            <!-- Login Link -->
+            <p class="mt-4 text-center text-sm text-gray-500">
+                Already have an account?
+                <a href="" class="text-blue-600 hover:underline">Login</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

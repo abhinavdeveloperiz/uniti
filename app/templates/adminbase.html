@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,maximum-scale=1.0">
+    <title>{% block title %}UNITI ADMIN{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black">
+
+    <!-- ===================== DESKTOP NAVBAR ===================== -->
+    <nav class="hidden md:block sticky top-0 z-50 bg-white border-b">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <img src="https://goridemoto.com/wp-content/uploads/2022/09/logo4.png" alt="UNITI Admin"
+                    class="h-9 w-auto object-contain">
+            </div>
+
+            <!-- Menu -->
+            <ul class="flex items-center gap-8 text-sm font-medium uppercase">
+                <li>
+                    <a href="{% url 'admin-dashboard' %}" class="hover:text-gray-500 transition">
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'admin-joblist' %}" class="hover:text-gray-500 transition">
+                        Jobs
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'admin-jobpost' %}" class="hover:text-gray-500 transition">
+                        Post Job
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'admin-applications' %}" class="hover:text-gray-500 transition">
+                        Applications
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Logout -->
+            <a href="" class="inline-flex items-center gap-2 border px-6 py-2 rounded-lg text-sm font-medium
+                      text-white bg-red-500 hover:bg-red-600 transition">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ===================== PAGE CONTENT ===================== -->
+    <main class="pb-24 md:pb-0">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- ===================== MOBILE BOTTOM NAVBAR ===================== -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-50 shadow-sm">
+        <ul class="grid grid-cols-5 text-xs font-medium"> <!-- Change to 5 columns -->
+
+            <li>
+                <a href="{% url 'admin-dashboard' %}"
+                    class="flex flex-col items-center justify-center py-3 gap-1 hover:bg-gray-50">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'admin-joblist' %}"
+                    class="flex flex-col items-center justify-center py-3 gap-1 hover:bg-gray-50">
+                    <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    Jobs
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'admin-jobpost' %}"
+                    class="flex flex-col items-center justify-center py-3 gap-1 hover:bg-gray-50">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                    Post
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'admin-applications' %}"
+                    class="flex flex-col items-center justify-center py-3 gap-1 hover:bg-gray-50">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    Applications
+                </a>
+            </li>
+
+            <li>
+                <a href="" class="flex flex-col items-center justify-center py-3 gap-1 text-red-600 hover:bg-red-50">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="hidden md:block text-center py-6 border-t mt-12 text-gray-600">
+        © {% now 'Y' %} UNITI. All rights reserved.
+    </footer>
+
+    <!-- ===================== SCRIPTS ===================== -->
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 80,
+        });
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+{% extends 'adminbase.html' %}
+{% block title %}Post New Job - Admin{% endblock %}
+{% block content %}
+
+<div class="min-h-screen bg-gray-50 p-3 sm:p-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+
+        <!-- Page Header -->
+        <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6" data-aos="fade-down">
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-3 rounded-xl shadow-md">
+                        <i data-lucide="plus-circle" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 uppercase">Edit Job</h1>
+                        <p class="text-sm text-gray-500">Update job posting</p>
+                    </div>
+                </div>
+                <a href="{% url 'admin-joblist' %}" class="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-xl font-medium text-sm border border-gray-200 hover:border-gray-300 flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                </a>
+            </div>
+        </div>
+
+        <!-- SIMPLE MANDATORY FORM -->
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Basic Information -->
+            <div class="bg-white rounded-2xl shadow-lg p-6" data-aos="fade-up">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5 text-indigo-600"></i>
+                    Basic Information
+                </h2>
+
+                <!-- Job Title -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Job Title *</label>
+                    <input type="text" name="title" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- Category + Job Type -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
+                        <select name="category" required class="w-full px-4 py-3 border border-gray-200 rounded-xl">
+                            <option value="">Select Category</option>
+                            <option>Software Development</option>
+                            <option>Design</option>
+                            <option>Marketing</option>
+                            <option>Management</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Job Type *</label>
+                        <select name="job_type" required class="w-full px-4 py-3 border border-gray-200 rounded-xl">
+                            <option value="">Select Job Type</option>
+                            <option>Full-time</option>
+                            <option>Part-time</option>
+                            <option>Contract</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Location + Positions -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Location *</label>
+                        <input type="text" name="location" required class="w-full px-4 py-3 border border-gray-200 rounded-xl">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">No. of Positions *</label>
+                        <input type="number" name="positions" min="1" required class="w-full px-4 py-3 border border-gray-200 rounded-xl">
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Experience Level *</label>
+                    <select name="experience" required class="w-full px-4 py-3 border border-gray-200 rounded-xl">
+                        <option value="">Select Experience</option>
+                        <option>Entry</option>
+                        <option>Mid</option>
+                        <option>Senior</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="bg-white rounded-2xl shadow-lg p-6" data-aos="fade-up">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="align-left" class="w-5 h-5 text-purple-600"></i>
+                    Job Description
+                </h2>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Short Description *</label>
+                    <textarea name="short_description" rows="3" required class="w-full px-4 py-3 border border-gray-200 rounded-xl resize-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Full Description *</label>
+                    <textarea name="full_description" rows="5" required class="w-full px-4 py-3 border border-gray-200 rounded-xl"></textarea>
+                </div>
+            </div>
+
+            <!-- Requirements -->
+            <div class="bg-white rounded-2xl shadow-lg p-6" data-aos="fade-up">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                    Requirements
+                </h2>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Requirements *</label>
+                    <textarea name="requirements" rows="4" required class="w-full px-4 py-3 border border-gray-200 rounded-xl"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Skills (comma-separated) *</label>
+                    <input type="text" name="skills" required class="w-full px-4 py-3 border border-gray-200 rounded-xl">
+                </div>
+            </div>
+
+          
+
+            <!-- Submit -->
+            <div class="    p-6" data-aos="fade-up">
+                <div class="flex justify-end">
+                    <button type="submit" class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl shadow-md font-semibold">
+                        Publish Job
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
