@@ -3,187 +3,179 @@
 {% block content %}
 
 <div class="min-h-screen bg-slate-50 px-4 sm:px-6 py-6">
-    <div class="max-w-7xl mx-auto space-y-6">
+    <div class="max-w-7xl mx-auto space-y-8">
 
         <!-- ================= HEADER ================= -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
                 <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
-                    Dashboard
+                    Admin Dashboard
                 </h1>
                 <p class="text-sm text-slate-500 mt-1">
-                    Overview of platform activity
+                    Platform overview and recent activity
                 </p>
             </div>
-            <div class="text-sm text-slate-500">
-                ADMIN
+            <div class="text-sm font-medium text-slate-600">
+                ADMIN PANEL
             </div>
         </div>
 
         <!-- ================= STATS ================= -->
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <div class="bg-white rounded-xl p-5 border shadow-sm hover:shadow-md transition">
+            <!-- Users -->
+            <div class="bg-gradient-to-br from-blue-600 to-blue-500 text-white rounded-2xl p-6 shadow-lg">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-slate-500 font-medium">Users</p>
-                        <h3 class="text-3xl font-bold text-slate-900 mt-1">120</h3>
+                        <p class="text-sm opacity-80">Total Users</p>
+                        <h3 class="text-3xl font-bold mt-1">{{ user_count }}</h3>
                     </div>
-                    <div class="bg-blue-100 text-blue-600 p-3 rounded-lg">
-                        <i data-lucide="users"></i>
-                    </div>
+                    <i data-lucide="users" class="w-10 h-10 opacity-80"></i>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl p-5 border shadow-sm hover:shadow-md transition">
+            <!-- Jobs -->
+            <div class="bg-gradient-to-br from-emerald-600 to-emerald-500 text-white rounded-2xl p-6 shadow-lg">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-slate-500 font-medium">Jobs</p>
-                        <h3 class="text-3xl font-bold text-slate-900 mt-1">58</h3>
+                        <p class="text-sm opacity-80">Active Jobs</p>
+                        <h3 class="text-3xl font-bold mt-1">{{ total_jobs }}</h3>
                     </div>
-                    <div class="bg-emerald-100 text-emerald-600 p-3 rounded-lg">
-                        <i data-lucide="briefcase"></i>
-                    </div>
+                    <i data-lucide="briefcase" class="w-10 h-10 opacity-80"></i>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl p-5 border shadow-sm hover:shadow-md transition">
+            <!-- Applications -->
+            <div class="bg-gradient-to-br from-purple-600 to-purple-500 text-white rounded-2xl p-6 shadow-lg">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-slate-500 font-medium">Applications</p>
-                        <h3 class="text-3xl font-bold text-slate-900 mt-1">350</h3>
+                        <p class="text-sm opacity-80">Applications</p>
+                        <h3 class="text-3xl font-bold mt-1">{{ total_applications }}</h3>
                     </div>
-                    <div class="bg-purple-100 text-purple-600 p-3 rounded-lg">
-                        <i data-lucide="file-check"></i>
-                    </div>
+                    <i data-lucide="file-text" class="w-10 h-10 opacity-80"></i>
                 </div>
             </div>
 
         </div>
 
-        <!-- ================= RECENT JOBS ================= -->
-        <div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
+        <!-- ================= MAIN GRID ================= -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- Header -->
-            <div class="px-6 py-4 border-b flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-900">Recent Jobs</h2>
-                    <p class="text-sm text-slate-500">Latest job postings</p>
+            <!-- ================= RECENT JOBS ================= -->
+            <div class="lg:col-span-2 bg-white rounded-2xl border shadow-sm overflow-hidden">
+
+                <div class="px-6 py-4 border-b flex bg-gray-100 items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-900">Recent Jobs</h2>
+                        <p class="text-sm text-slate-500">Latest job postings</p>
+                    </div>
+                    <a href="{% url 'admin-joblist' %}"
+                       class="text-sm font-medium text-indigo-600 hover:underline flex items-center gap-1">
+                        View all
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
                 </div>
-                <a href="{% url 'admin-joblist' %}"
-                   class="text-sm font-medium text-blue-600 hover:underline flex items-center gap-1">
-                    View all
-                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+
+                {% for job in recent_jobs %}
+                <div class="p-5 border-b hover:bg-slate-50 transition">
+                    <div class="flex justify-between items-start gap-4">
+
+                        <!-- Job Info -->
+                        <div>
+                            <h3 class="font-semibold text-slate-900">
+                                {{ job.title }}
+                            </h3>
+
+                            <div class="flex flex-wrap gap-3 text-xs text-slate-500 mt-2">
+
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="tag" class="w-3 h-3"></i>
+                                    {{ job.category.name }}
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="calendar" class="w-3 h-3"></i>
+                                    {{ job.created_at|date:"d M Y" }}
+                                </span>
+
+                                <span class="flex items-center gap-1 text-indigo-600 font-medium">
+                                    <i data-lucide="users" class="w-3 h-3"></i>
+                                    {{ job.applications.count }} Applications
+                                </span>
+
+                                <span class="px-2 py-0.5 rounded-full text-xs font-medium
+                                    {% if job.job_type == 'remote' %}bg-green-100 text-green-700
+                                    {% elif job.job_type == 'hybrid' %}bg-blue-100 text-blue-700
+                                    {% else %}bg-purple-100 text-purple-700{% endif %}">
+                                    {{ job.get_job_type_display }}
+                                </span>
+
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center gap-2">
+                            <a href="{% url 'admin-jobdetails' %}?id={{ job.id }}"
+                               class="p-2 rounded-lg text-blue-600 hover:bg-blue-50"
+                               title="View Job">
+                                <i data-lucide="eye"></i>
+                            </a>
+
+                            <a href="{% url 'admin-jobedit' %}?id={{ job.id }}"
+                               class="p-2 rounded-lg text-green-600 hover:bg-green-50"
+                               title="Edit Job">
+                                <i data-lucide="edit"></i>
+                            </a>
+
+                            <a href="{% url 'admin-jobdelete' %}?id={{ job.id }}"
+                               onclick="return confirm('Delete this job?');"
+                               class="p-2 rounded-lg text-red-600 hover:bg-red-50"
+                               title="Delete Job">
+                                <i data-lucide="trash-2"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                {% empty %}
+                <div class="p-6 text-center text-sm text-slate-500">
+                    No recent jobs available.
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- ================= QUICK ACTIONS ================= -->
+            <div class="bg-white rounded-2xl border shadow-sm p-6 space-y-5">
+
+                <h3 class="text-lg font-semibold text-slate-900">
+                    Quick Actions
+                </h3>
+
+                <a href="{% url 'admin-jobpost' %}"
+                   class="w-full inline-flex justify-center items-center gap-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:bg-indigo-700">
+                    <i data-lucide="plus-circle"></i>
+                    Post New Job
                 </a>
-            </div>
 
-            <!-- ================= JOB LIST (UNCHANGED FORMAT) ================= -->
+                <a href="{% url 'admin-joblist' %}"
+                   class="w-full inline-flex justify-center items-center gap-2 px-4 py-3 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200">
+                    <i data-lucide="list"></i>
+                    Manage Jobs
+                </a>
 
-            <!-- Job Item 1 -->
-            <div class="p-5 border-b hover:bg-slate-50 transition">
-                <div class="flex justify-between items-start gap-4">
-                    <div>
-                        <h3 class="text-base font-semibold text-slate-900">
-                            UI/UX Designer
-                        </h3>
-                        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 mt-2">
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="tag" class="w-3 h-3"></i> Design
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="calendar" class="w-3 h-3"></i> Dec 10
-                            </span>
-                            <span class="flex items-center gap-1 text-emerald-600">
-                                <i data-lucide="circle" class="w-2 h-2 fill-emerald-500"></i> Active
-                            </span>
-                        </div>
-                    </div>
+                <a href="{% url 'admin-applications' %}"
+                   class="w-full inline-flex justify-center items-center gap-2 px-4 py-3 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200">
+                    <i data-lucide="file-check"></i>
+                    View Applications
+                </a>
 
-                    <div class="flex items-center gap-2">
-                        <button class="p-2 rounded-lg text-blue-600 hover:bg-blue-50">
-                            <i data-lucide="eye"></i>
-                        </button>
-                        <button class="p-2 rounded-lg text-green-600 hover:bg-green-50">
-                            <i data-lucide="edit"></i>
-                        </button>
-                        <button class="p-2 rounded-lg text-red-600 hover:bg-red-50">
-                            <i data-lucide="trash-2"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Job Item 2 -->
-            <div class="p-5 border-b hover:bg-slate-50 transition">
-                <div class="flex justify-between items-start gap-4">
-                    <div>
-                        <h3 class="text-base font-semibold text-slate-900">
-                            Senior Python Developer
-                        </h3>
-                        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 mt-2">
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="tag" class="w-3 h-3"></i> Software
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="calendar" class="w-3 h-3"></i> Dec 9
-                            </span>
-                            <span class="flex items-center gap-1 text-emerald-600">
-                                <i data-lucide="circle" class="w-2 h-2 fill-emerald-500"></i> Active
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <button class="p-2 rounded-lg text-blue-600 hover:bg-blue-50">
-                            <i data-lucide="eye"></i>
-                        </button>
-                        <button class="p-2 rounded-lg text-green-600 hover:bg-green-50">
-                            <i data-lucide="edit"></i>
-                        </button>
-                        <button class="p-2 rounded-lg text-red-600 hover:bg-red-50">
-                            <i data-lucide="trash-2"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Job Item 3 -->
-            <div class="p-5 hover:bg-slate-50 transition">
-                <div class="flex justify-between items-start gap-4">
-                    <div>
-                        <h3 class="text-base font-semibold text-slate-900">
-                            HR Manager
-                        </h3>
-                        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 mt-2">
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="tag" class="w-3 h-3"></i> Management
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="calendar" class="w-3 h-3"></i> Dec 7
-                            </span>
-                            <span class="flex items-center gap-1 text-emerald-600">
-                                <i data-lucide="circle" class="w-2 h-2 fill-emerald-500"></i> Active
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <button class="p-2 rounded-lg text-blue-600 hover:bg-blue-50">
-                            <i data-lucide="eye"></i>
-                        </button>
-                        <button class="p-2 rounded-lg text-green-600 hover:bg-green-50">
-                            <i data-lucide="edit"></i>
-                        </button>
-                        <button class="p-2 rounded-lg text-red-600 hover:bg-red-50">
-                            <i data-lucide="trash-2"></i>
-                        </button>
-                    </div>
-                </div>
             </div>
 
         </div>
 
     </div>
 </div>
+
 
 {% endblock %}

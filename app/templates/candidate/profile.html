@@ -3,71 +3,104 @@
 
 {% block content %}
 
-<div class="max-w-2xl mx-auto px-4 pt-10">
+<div class="max-w-4xl mx-auto px-4 py-10">
 
-    <!-- Profile Card -->
-    <div class="border rounded-2xl p-6 shadow-sm bg-white">
+    <div class="bg-white border rounded-3xl shadow-sm overflow-hidden">
 
-        <!-- Avatar and Name -->
-        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <div class="w-24 h-24 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold">
-                A
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 sm:p-8">
+
+            <!-- Avatar -->
+            <div class="w-24 h-24 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold shrink-0">
+                {{ user.first_name|default:user.email|slice:":1"|upper }}
             </div>
+
+            <!-- Basic Info -->
             <div class="flex-1 text-center sm:text-left">
-                <h2 class="mt-2 sm:mt-0 text-2xl font-semibold text-gray-900">
-                    Abhinav M
+                <h2 class="text-xl sm:text-2xl font-semibold text-gray-900">
+                    {{ user.get_full_name|default:user.email }}
                 </h2>
-                <p class="text-sm text-gray-600 mt-1">abhinav@email.com</p>
-                <p class="text-sm text-gray-500 mt-1">UI/UX Designer</p>
+
+             
+
+                <p class="text-sm text-gray-500 mt-1 flex items-center justify-center sm:justify-start gap-2">
+                    <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    {{ user.designation|default:"—" }}
+                </p>
             </div>
 
-            <!-- Edit Button -->
-            <a href=""
-               class="mt-4 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition">
-                <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Profile
+            <!-- Edit -->
+            <a href="{% url 'candidate-editprofile' %}"
+               class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition">
+                <i data-lucide="edit-3" class="w-4 h-4"></i>
+                Edit Profile
             </a>
         </div>
 
-        <!-- Additional Info -->
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+        <!-- Divider -->
+        <div class="border-t"></div>
 
-            <div>
-                <h3 class="font-medium text-gray-900">Education</h3>
-                <p>Bachelor of Design, NIFT, 2020</p>
+        <!-- Details -->
+        <div class="p-6 sm:p-8 grid grid-cols-2 md:grid-cols-2 gap-6 text-sm">
+
+            <div class="flex gap-3">
+                <i data-lucide="graduation-cap" class="w-5 h-5 text-blue-600"></i>
+                <div>
+                    <p class="text-gray-500">Education</p>
+                    <p class="font-medium text-gray-900">{{ user.education|default:"—" }}</p>
+                </div>
             </div>
 
-            <div>
-                <h3 class="font-medium text-gray-900">Experience</h3>
-                <p>3 Years in UI/UX Design</p>
+            <div class="flex gap-3">
+                <i data-lucide="map-pin" class="w-5 h-5 text-blue-600"></i>
+                <div>
+                    <p class="text-gray-500">Location</p>
+                    <p class="font-medium text-gray-900">{{ user.location|default:"—" }}</p>
+                </div>
             </div>
 
-            <div>
-                <h3 class="font-medium text-gray-900">Location</h3>
-                <p>Dubai</p>
-            </div>
-
-            <div>
-                <h3 class="font-medium text-gray-900">Phone</h3>
-                <p>+91 98765 43210</p>
+            <div class="flex gap-3">
+                <i data-lucide="phone" class="w-5 h-5 text-blue-600"></i>
+                <div>
+                    <p class="text-gray-500">Phone</p>
+                    <p class="font-medium text-gray-900">{{ user.phone|default:"—" }}</p>
+                </div>
             </div>
 
         </div>
 
-        <!-- Resume Download -->
-        <div class="mt-6 border-t pt-4">
-            <h3 class="font-medium text-gray-900 mb-2">Resume</h3>
-            <a href="/media/dummy_resume.pdf" target="_blank"
-               class="inline-flex items-center gap-2 text-blue-600 font-medium hover:underline">
-                <i data-lucide="file-text" class="w-5 h-5"></i>
-                Download Resume
-            </a>
+        <!-- Resume -->
+        <div class="border-t p-6 sm:p-8">
+            <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <i data-lucide="file-text" class="w-5 h-5 text-blue-600"></i>
+                Resume
+            </h3>
+
+            {% if user.resume %}
+            <div class="flex flex-wrap gap-4">
+                <a href="{{ user.resume.url }}" target="_blank"
+                   class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 text-sm font-medium">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                    View
+                </a>
+
+                <a href="{{ user.resume.url }}" download
+                   class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-green-200 text-green-600 hover:bg-green-50 text-sm font-medium">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    Download
+                </a>
+            </div>
+            {% else %}
+            <p class="text-gray-400 text-sm">No resume uploaded</p>
+            {% endif %}
         </div>
 
-        <!-- Navigation Links -->
-        <div class="mt-6 border-t pt-4 divide-y rounded-xl overflow-hidden">
+        <!-- Navigation -->
+        <div class="border-t divide-y">
+
             <a href="{% url 'candidate-joblist' %}"
-               class="flex items-center justify-between px-5 py-4 text-sm font-medium hover:bg-gray-50 transition">
-                <span class="flex items-center gap-3">
+               class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition">
+                <span class="flex items-center gap-3 text-sm font-medium">
                     <i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i>
                     Job List
                 </span>
@@ -75,18 +108,19 @@
             </a>
 
             <a href="{% url 'candidate-jobappliedlist' %}"
-               class="flex items-center justify-between px-5 py-4 text-sm font-medium hover:bg-gray-50 transition">
-                <span class="flex items-center gap-3">
+               class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition">
+                <span class="flex items-center gap-3 text-sm font-medium">
                     <i data-lucide="check-circle" class="w-4 h-4 text-blue-600"></i>
                     Applied Jobs
                 </span>
                 <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
+
         </div>
 
         <!-- Logout -->
-        <div class="mt-6">
-            <a href=""
+        <div class="p-6 sm:p-8">
+            <a href="{% url 'candidate-logout' %}"
                class="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-red-500 text-red-600 font-medium hover:bg-red-50 transition">
                 <i data-lucide="log-out" class="w-4 h-4"></i>
                 Logout
@@ -96,5 +130,9 @@
     </div>
 
 </div>
+
+<script>
+    lucide.createIcons();
+</script>
 
 {% endblock %}

@@ -1,425 +1,251 @@
 {% extends 'cbase.html' %}
+{% load static %}
 {% block content %}
 
-<!-- ===================== BANNER CAROUSEL ===================== -->
-<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-12">
-    <div class="overflow-hidden rounded-2xl shadow-lg">
-        <div id="carousel" class="flex transition-transform duration-700 ease-in-out">
-            <img src="https://static.vecteezy.com/system/resources/previews/023/811/270/non_2x/colorful-summer-background-layout-banner-design-landscape-poster-greeting-card-header-to-website-free-vector.jpg"
-                class="w-full h-48 md:h-96 object-cover flex-shrink-0" alt="Banner 1">
-            <img src="https://static.vecteezy.com/system/resources/previews/023/811/267/non_2x/colorful-summer-background-layout-banner-design-landscape-poster-greeting-card-header-to-website-vector.jpg"
-                class="w-full h-48 md:h-96 object-cover flex-shrink-0" alt="Banner 2">
-            <img src="https://thumbs.dreamstime.com/b/hiring-recruitment-join-now-design-banner-poster-megaphone-hiring-lettering-geometric-shapes-lines-vector-illust-146775397.jpg"
-                class="w-full h-48 md:h-96 object-cover flex-shrink-0" alt="Banner 3">
+<!-- ===================== IMAGE BANNER CAROUSEL ===================== -->
+<div class="relative overflow-hidden h-[220px] sm:h-[300px] md:h-[380px]">
+    <div id="carousel" class="flex h-full transition-transform duration-700">
+
+        <!-- Slide 1 -->
+        <div class="min-w-full relative">
+            <img src="https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_640.jpg"
+                class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50 flex items-center justify-center text-center text-white px-4">
+                <div>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold mb-3">
+                        Find Your Dream Job
+                    </h1>
+                    <p class="text-sm sm:text-lg opacity-90">
+                        Explore thousands of verified opportunities
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <!-- Carousel Indicators -->
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-        <button onclick="goToSlide(0)" class="w-2 h-2 rounded-full bg-white/60 hover:bg-white transition"></button>
-        <button onclick="goToSlide(1)" class="w-2 h-2 rounded-full bg-white/60 hover:bg-white transition"></button>
-        <button onclick="goToSlide(2)" class="w-2 h-2 rounded-full bg-white/60 hover:bg-white transition"></button>
+
+        <!-- Slide 2 -->
+        <div class="min-w-full relative">
+            <img src="https://eduauraapublic.s3.ap-south-1.amazonaws.com/webassets/images/blogs/highest-paying-jobs-in-india.jpg"
+                class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50 flex items-center justify-center text-center text-white px-4">
+                <div>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold mb-3">
+                        Remote • Hybrid • Onsite
+                    </h1>
+                    <p class="text-sm sm:text-lg opacity-90">
+                        Jobs that fit your lifestyle
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="min-w-full relative">
+            <img src="https://images.unsplash.com/photo-1459180129673-eefb56f79b45?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyZWVyfGVufDB8fDB8fHww" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50 flex items-center justify-center text-center text-white px-4">
+                <div>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold mb-3">
+                        Apply With Confidence
+                    </h1>
+                    <p class="text-sm sm:text-lg opacity-90">
+                        Trusted companies hiring now
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<!-- ===================== MAIN CONTENT ===================== -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    <!-- Header Section -->
-    <div class="mb-10">
-        <div class="text-center mb-8">
-            <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-3">Find Your Dream Job</h1>
-            <p class="text-md text-gray-600">Explore thousands of verified opportunities from top companies</p>
-        </div>
 
-        <!-- Enhanced Search Bar -->
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-3">
-                <div class="flex flex-col md:flex-row gap-3">
-                    <!-- Job Search -->
-                    <div class="flex items-center bg-gray-50 rounded-xl px-4 py-3 flex-1">
-                        <i data-lucide="search" class="w-5 h-5 text-blue-600"></i>
-                        <input type="text" placeholder="Job title, skills, or keywords"
-                            class="ml-3 w-full bg-transparent focus:outline-none text-sm text-gray-700 placeholder-gray-400">
-                    </div>
-                    
-                 
-                    
-                    <!-- Search Button -->
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2">
-                        <i data-lucide="search" class="w-4 h-4"></i>
-                        Search
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Filter Bar -->
-    <div class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-200">
-        <div class="flex items-center gap-2 text-sm text-gray-600">
-            <span class="font-semibold text-gray-900">1,247</span> jobs found
-        </div>
-        
-        <div class="flex flex-wrap gap-3">
-            <button onclick="openFilters()"
-                class="flex items-center gap-2 bg-white border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
-                <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
-                All Filters
+<!-- ===================== SEARCH ===================== -->
+<div class="max-w-5xl mx-auto -mt-10 sm:-mt-12 mb-12 relative z-10 px-4">
+    <form method="get" class="bg-white rounded-2xl shadow-xl border p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row gap-3">
+            <input type="text" name="search" value="{{ search|default:'' }}" placeholder="Job title, skill, keyword"
+                class="flex-1 px-4 py-3 rounded-xl border focus:outline-none">
+            <button class="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold">
+                Search
             </button>
-            
-          
         </div>
+    </form>
+</div>
+
+
+
+<!-- Messages -->
+{% if messages %}
+<div class="space-y-3 my-8 w-[70%] mx-auto">
+    {% for message in messages %}
+    <div class="flex items-center justify-between gap-3 px-4 py-3 rounded-lg text-sm font-medium relative
+                {% if message.tags == 'success' %} bg-green-100 text-green-700 border border-green-200
+                {% elif message.tags == 'error' %} bg-red-100 text-red-700 border border-red-200
+                {% else %} bg-blue-100 text-blue-700 border border-blue-200 {% endif %}">
+        
+        <div class="flex items-center gap-2">
+            <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}"
+               class="w-4 h-4"></i>
+            <span>{{ message }}</span>
+        </div>
+
+        <!-- Close Button -->
+        <button onclick="this.parentElement.remove()"
+                class="text-gray-500 hover:text-gray-700">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
     </div>
+    {% endfor %}
+</div>
+{% endif %}
 
-    <!-- ===================== JOB LIST ===================== -->
-    <div class="space-y-5">
 
-    <!-- Job Card 1 -->
-    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 group">
-        <div class="flex flex-col md:flex-row gap-5">
 
-            <!-- Company Logo -->
-            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md flex-shrink-0">
-                T
+<!-- ===================== JOB COUNT ===================== -->
+<div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center mb-6">
+    <p class="text-sm text-gray-600">
+        <span class="font-semibold text-gray-900">{{ total_jobs }}</span> jobs found
+    </p>
+    <button onclick="openFilters()" class="group inline-flex items-center gap-2
+           bg-gradient-to-r from-blue-600 to-indigo-600
+           text-white px-5 py-2.5 rounded-xl text-sm font-semibold
+           shadow-md hover:shadow-lg
+           hover:from-blue-700 hover:to-indigo-700
+           focus:outline-none focus:ring-2 focus:ring-blue-300
+           transition-all duration-300">
+
+        <!-- Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-90"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 12.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17.999v-5.585L3.293 6.707A1 1 0 013 6V4z" />
+        </svg>
+
+        <!-- Text -->
+        Filters
+    </button>
+
+</div>
+
+<!-- ===================== JOB LIST ===================== -->
+<div class="max-w-7xl mx-auto px-4 space-y-5">
+
+    {% for job in page_obj %}
+    <div class="bg-blue-50 border rounded-2xl p-5 sm:p-6 hover:shadow-lg transition">
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <!-- Logo -->
+            <div
+                class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 rounded-xl flex items-center justify-center text-white text-lg font-bold">
+                {{ job.company|slice:":1"|upper }}
             </div>
 
             <div class="flex-1">
-                <div class="flex justify-between items-start flex-wrap gap-3 mb-2">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                            Senior React Developer
-                        </h3>
-                        <p class="text-sm text-gray-600 mt-1 font-medium">TechNova Solutions</p>
-                    </div>
-                    <span class="text-xs bg-green-100 text-green-700 px-4 py-1.5 rounded-full font-semibold">
-                        Full Time
-                    </span>
-                </div>
+                <h3 class="text-lg sm:text-xl font-bold">{{ job.title }}</h3>
+                <p class="text-sm text-gray-600">{{ job.company }}</p>
 
-                <div class="flex flex-wrap gap-5 text-sm text-gray-600 mt-4">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">Dubai, UAE</span>
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">3–5 Years</span>
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="indian-rupee" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">₹12L – ₹18L per annum</span>
-                    </span>
+                <!-- Meta -->
+                <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-2">
+                    <span>{{ job.location }}</span>
+                    <span>{{ job.get_job_type_display }}</span>
                 </div>
 
                 <!-- Skills -->
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">React</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Next.js</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Tailwind CSS</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">TypeScript</span>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    {% if job.skill_1 %}<span class="skill">{{ job.skill_1 }}</span>{% endif %}
+                    {% if job.skill_2 %}<span class="skill">{{ job.skill_2 }}</span>{% endif %}
+                    {% if job.skill_3 %}<span class="skill">{{ job.skill_3 }}</span>{% endif %}
+                    {% if job.skill_4 %}<span class="skill">{{ job.skill_4 }}</span>{% endif %}
+                    {% if job.skill_5 %}<span class="skill">{{ job.skill_5 }}</span>{% endif %}
                 </div>
 
-                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 flex-wrap gap-4">
-                    <p class="text-xs text-gray-500 flex items-center gap-2">
-                        <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                        Posted 2 days ago • <span class="text-blue-600 font-medium">230 applicants</span>
+                <!-- Footer -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-5 pt-4 border-t">
+                    <p class="text-xs text-gray-500">
+                        Posted {{ job.created_at|timesince }} ago · {{ job.applications.count }} applicants
                     </p>
 
-                    <div class="flex gap-3">
-                        <a href="{% url 'candidate-jobdetail' %}"
-                           class="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
-                            View Details
+                    <div class="flex flex-wrap gap-2">
+                        <a href="{% url 'candidate-jobdetail' job.id %}" class="px-4 py-2 border rounded-lg text-sm">
+                            Job Details
                         </a>
-                        <a class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-md hover:shadow-lg">
+
+                        {% if job.id in applied_job_ids %}
+                        <span class="px-4 py-2 bg-gray-300 rounded-lg text-sm">
+                            Applied
+                        </span>
+                        {% else %}
+                        <a href="{% url 'candidate-jobapply' job.id %}"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">
                             Apply Now
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% empty %}
+    <p class="text-center text-gray-500 py-20">No jobs found.</p>
+    {% endfor %}
 
-    <!-- Job Card 2 -->
-    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 group">
-        <div class="flex flex-col md:flex-row gap-5">
-
-            <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md flex-shrink-0">
-                D
-            </div>
-
-            <div class="flex-1">
-                <div class="flex justify-between items-start flex-wrap gap-3 mb-2">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                            UI/UX Designer
-                        </h3>
-                        <p class="text-sm text-gray-600 mt-1 font-medium">DesignHub Studio</p>
-                    </div>
-                    <span class="text-xs bg-purple-100 text-purple-700 px-4 py-1.5 rounded-full font-semibold">
-                        Remote
-                    </span>
-                </div>
-
-                <div class="flex flex-wrap gap-5 text-sm text-gray-600 mt-4">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">Dubai, UAE</span>
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">2–4 Years</span>
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="indian-rupee" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">₹8L – ₹14L per annum</span>
-                    </span>
-                </div>
-
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Figma</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Adobe XD</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Prototyping</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">User Research</span>
-                </div>
-
-                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 flex-wrap gap-4">
-                    <p class="text-xs text-gray-500 flex items-center gap-2">
-                        <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                        Posted 5 days ago • <span class="text-blue-600 font-medium">145 applicants</span>
-                    </p>
-
-                    <div class="flex gap-3">
-                        <a href="{% url 'candidate-jobdetail' %}"
-                           class="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
-                            View Details
-                        </a>
-                        <a class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-md hover:shadow-lg">
-                            Apply Now
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Job Card 3 -->
-    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 group">
-        <div class="flex flex-col md:flex-row gap-5">
-
-            <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md flex-shrink-0">
-                A
-            </div>
-
-            <div class="flex-1">
-                <div class="flex justify-between items-start flex-wrap gap-3 mb-2">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                            Data Scientist
-                        </h3>
-                        <p class="text-sm text-gray-600 mt-1 font-medium">Analytics Pro Inc.</p>
-                    </div>
-                    <span class="text-xs bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full font-semibold">
-                        Hybrid
-                    </span>
-                </div>
-
-                <div class="flex flex-wrap gap-5 text-sm text-gray-600 mt-4">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">Dubai, UAE</span>
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">4–6 Years</span>
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="indian-rupee" class="w-4 h-4 text-blue-600"></i>
-                        <span class="font-medium">₹18L – ₹25L per annum</span>
-                    </span>
-                </div>
-
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Python</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">Machine Learning</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">SQL</span>
-                    <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">TensorFlow</span>
-                </div>
-
-                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 flex-wrap gap-4">
-                    <p class="text-xs text-gray-500 flex items-center gap-2">
-                        <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                        Posted 1 week ago • <span class="text-blue-600 font-medium">89 applicants</span>
-                    </p>
-
-                    <div class="flex gap-3">
-                        <a href="{% url 'candidate-jobdetail' %}"
-                           class="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
-                            View Details
-                        </a>
-                        <a class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-md hover:shadow-lg">
-                            Apply Now
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-
-    <!-- Pagination -->
-    <div class="flex justify-center items-center gap-3 mt-12">
-        <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:border-blue-600 hover:text-blue-600 transition-colors">
-            Previous
-        </button>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">1</button>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:border-blue-600 hover:text-blue-600 transition-colors">2</button>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:border-blue-600 hover:text-blue-600 transition-colors">3</button>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:border-blue-600 hover:text-blue-600 transition-colors">
-            Next
-        </button>
-    </div>
 </div>
 
 <!-- ===================== FILTER MODAL ===================== -->
-<div id="filterModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-            
-            <!-- Header -->
-            <div class="border-b border-gray-200 px-6 py-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-white">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-900">Filter Jobs</h2>
-                    <p class="text-sm text-gray-600 mt-1">Refine your job search</p>
-                </div>
-                <button onclick="closeFilters()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
+<div id="filterModal" class="fixed inset-0 bg-black/50 hidden z-50 px-4">
+    <form method="get" class="bg-white max-w-lg mx-auto mt-20 p-6 rounded-2xl space-y-4">
+        <h2 class="text-xl font-bold">Filters</h2>
 
-            <!-- Body -->
-            <div class="overflow-y-auto px-6 py-6 space-y-6" style="max-height: calc(90vh - 180px);">
+        <select name="category" class="w-full border p-3 rounded">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-900 mb-3">Job Category</label>
-                    <select class="w-full border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100">
-                        <option>All Categories</option>
-                        <option>Software Development</option>
-                        <option>Design & Creative</option>
-                        <option>Marketing & Sales</option>
-                        <option>Data Science & Analytics</option>
-                        <option>Management</option>
-                        <option>Finance & Accounting</option>
-                    </select>
-                </div>
+        <select name="job_type" class="w-full border p-3 rounded">
+            <option value="">All Job Types</option>
+            <option value="remote">Remote</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="onsite">Onsite</option>
+        </select>
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-900 mb-3">Work Type</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-colors cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Full Time</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-colors cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Part Time</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-colors cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Remote</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-colors cursor-pointer">
-                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Hybrid</span>
-                        </label>
-                    </div>
-                </div>
-
-             
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-900 mb-3">Salary Range (per annum)</label>
-                    <div class="px-2">
-                        <input type="range" min="0" max="50" value="25" class="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
-                        <div class="flex justify-between text-xs text-gray-600 mt-2">
-                            <span>₹0L</span>
-                            <span class="font-semibold text-blue-600">Up to ₹25L</span>
-                            <span>₹50L+</span>
-                        </div>
-                    </div>
-                </div>
-
-               
-
-            </div>
-
-            <!-- Footer -->
-            <div class="border-t border-gray-200 px-6 py-4 bg-gray-50 flex justify-between gap-3">
-                <button onclick="closeFilters()" class="px-6 py-2.5 rounded-xl border border-gray-300 text-sm font-medium hover:bg-white transition-colors">
-                    Reset 
-                </button>
-                <div class="flex gap-3">
-                    <button onclick="closeFilters()" class="px-6 py-2.5 rounded-xl border border-gray-300 text-sm font-medium hover:bg-white transition-colors">
-                        Cancel
-                    </button>
-                    <button onclick="closeFilters()" class="px-8 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-md">
-                        Apply 
-                    </button>
-                </div>
-            </div>
+        <div class="flex justify-end gap-3">
+            <button type="button" onclick="closeFilters()" class="px-4 py-2 border rounded">
+                Cancel
+            </button>
+            <button class="px-6 py-2 bg-blue-600 text-white rounded">
+                Apply
+            </button>
         </div>
-    </div>
+    </form>
 </div>
 
-<!-- Scripts -->
+<!-- ===================== SCRIPTS ===================== -->
 <script>
-    // Carousel
-    const carousel = document.getElementById('carousel');
-    let carouselIndex = 0;
-    
-    function goToSlide(index) {
-        carouselIndex = index;
-        carousel.style.transform = `translateX(-${carouselIndex * 100}%)`;
-        updateIndicators();
-    }
-    
-    function updateIndicators() {
-        const buttons = document.querySelectorAll('[onclick^="goToSlide"]');
-        buttons.forEach((btn, idx) => {
-            if (idx === carouselIndex) {
-                btn.classList.remove('bg-white/60');
-                btn.classList.add('bg-white');
-            } else {
-                btn.classList.remove('bg-white');
-                btn.classList.add('bg-white/60');
-            }
-        });
-    }
-    
+    let index = 0;
     setInterval(() => {
-        carouselIndex = (carouselIndex + 1) % 3;
-        carousel.style.transform = `translateX(-${carouselIndex * 100}%)`;
-        updateIndicators();
-    }, 5000);
+        index = (index + 1) % 3;
+        document.getElementById('carousel').style.transform =
+            `translateX(-${index * 100}%)`;
+    }, 4000);
 
-    // Filter Modal
     function openFilters() {
         document.getElementById('filterModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
     }
-    
     function closeFilters() {
         document.getElementById('filterModal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-
-    // Initialize Lucide icons
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
     }
 </script>
+
+<style>
+    .skill {
+        font-size: 12px;
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+</style>
 
 {% endblock %}

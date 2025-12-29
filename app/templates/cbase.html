@@ -54,6 +54,9 @@
                 <li>
                     <a href="{% url 'candidate-jobappliedlist' %}" class="hover:text-gray-500 transition">Applied</a>
                 </li>
+                <li>
+                    <a href="{% url 'candidate-contact' %}" class="hover:text-gray-500 transition">Contact</a>
+                </li>
             </ul>
 
             <!-- Logout -->
@@ -102,17 +105,20 @@
             </li>
 
             <li>
-                <a href="" class="flex flex-col items-center justify-center py-3 gap-1 text-red-600 hover:bg-red-50">
-                    <i data-lucide="log-out" class="w-5 h-5"></i>
-                    Logout
+                <a href="{% url 'candidate-contact' %}"
+                    class="flex flex-col items-center justify-center py-3 gap-1 hover:bg-gray-50">
+                    <i data-lucide="message-square" class="w-5 h-5"></i>
+                    Contact
                 </a>
             </li>
+
+          
 
         </ul>
     </nav>
 
     <!-- ===================== FOOTER ===================== -->
-    <footer class="hidden md:block text-center py-6 border-t mt-12 text-gray-600">
+    <footer class="hidden md:block text-center py-6 border-t text-gray-600">
         © {% now 'Y' %} UNITI. All rights reserved.
     </footer>
 

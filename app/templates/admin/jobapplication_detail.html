@@ -1,0 +1,123 @@
+{% extends 'adminbase.html' %}
+{% block title %}Application Details{% endblock %}
+{% block content %}
+
+<div class="min-h-screen bg-slate-50 px-4 sm:px-6 py-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+
+        <!-- ================= HEADER ================= -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                Application Details
+            </h1>
+            <a href="{% url 'admin-applications' %}" class="text-gray-600"><- Back to List</a>
+        </div>
+
+        <!-- ================= FLASH MESSAGES ================= -->
+        {% if messages %}
+        <div class="space-y-3">
+            {% for message in messages %}
+            <div class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium
+                {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+                <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}" class="w-4 h-4"></i>
+                <span>{{ message }}</span>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-gray-500 hover:text-gray-700">&times;</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- ================= CANDIDATE INFO ================= -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6 space-y-4">
+            <h2 class="text-xl font-semibold text-slate-900 mb-4">Candidate Details</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div>
+                    <p class="font-medium text-slate-900">Email</p>
+                    <p class="text-sm text-slate-600">{{ application.candidate.email }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Phone</p>
+                    <p class="text-sm text-slate-600">{{ application.candidate.phone }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Location</p>
+                    <p class="text-sm text-slate-600">{{ application.candidate.location }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Education</p>
+                    <p class="text-sm text-slate-600">{{ application.candidate.education }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Designation</p>
+                    <p class="text-sm text-slate-600">{{ application.candidate.designation }}</p>
+                </div>
+
+                <!-- ================= RESUME VIEW & DOWNLOAD ================= -->
+                <div class="md:col-span-2 flex flex-col gap-2">
+                    <p class="font-medium text-slate-900">Resume</p>
+                    <div class="flex gap-4">
+                        <a href="{{ application.candidate.resume.url }}" target="_blank"
+                           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                           <i data-lucide="eye" class="w-5 h-5"></i>
+                        </a>
+                        <a href="{{ application.candidate.resume.url }}" download
+                           class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                           <i data-lucide="download" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= JOB INFO ================= -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6 space-y-4">
+            <h2 class="text-xl font-semibold text-slate-900 mb-4">Job Details</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="font-medium text-slate-900">Position</p>
+                    <p class="text-sm text-slate-600">{{ application.job.title }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Company</p>
+                    <p class="text-sm text-slate-600">{{ application.job.company }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Location</p>
+                    <p class="text-sm text-slate-600">{{ application.job.location }}</p>
+                </div>
+                <div>
+                    <p class="font-medium text-slate-900">Job Type</p>
+                    <p class="text-sm text-slate-600">{{ application.job.get_job_type_display }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= UPDATE STATUS ================= -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6 space-y-4">
+            <h2 class="text-xl font-semibold text-slate-900 mb-4">Update Application Status</h2>
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <select name="status" class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
+                        {% for key, label in status_choices %}
+                            <option value="{{ key }}" {% if application.status == key %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="text" name="notes" placeholder="Add notes (optional)" value="{{ application.notes|default_if_none:'' }}"
+                        class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 flex-1">
+
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700">
+                        Update Status
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

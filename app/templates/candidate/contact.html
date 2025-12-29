@@ -1,0 +1,121 @@
+{% extends 'cbase.html' %}
+{% block title %}Contact Support{% endblock %}
+{% block content %}
+
+<div class="min-h-screen bg-slate-50 px-4 sm:px-6 py-8">
+    <div class="max-w-7xl mx-auto space-y-8">
+
+        <!-- ================= HEADER ================= -->
+        <div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                Contact Support
+            </h1>
+            <p class="text-sm text-slate-500 mt-1">
+                Get in touch with our team for support, inquiries, or assistance.
+            </p>
+        </div>
+
+        <!-- ================= MAIN GRID ================= -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- ================= LEFT: CONTACT FORM ================= -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-md p-8 sm:p-10">
+                <h2 class="text-xl font-semibold text-slate-800 mb-6">
+                    Send Us a Message
+                </h2>
+
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+
+                    <!-- Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">
+                            Full Name
+                        </label>
+                        <input type="text" name="name" required
+                               placeholder="John Doe"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">
+                            Email Address
+                        </label>
+                        <input type="email" name="email" required
+                               placeholder="john@example.com"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">
+                            Message
+                        </label>
+                        <textarea name="message" rows="5" required
+                                  placeholder="Write your message here..."
+                                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none"></textarea>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit"
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+            <!-- ================= RIGHT: ADDRESS CARD ================= -->
+            <div class="bg-white rounded-2xl shadow-md p-8 space-y-6">
+                <h2 class="text-xl font-semibold text-slate-800">
+                    Office Address
+                </h2>
+
+                <div class="space-y-3 text-sm text-slate-600">
+                    <p>
+                        <strong class="text-slate-800">Company Name:</strong><br>
+                        XYZ Technologies LLC
+                    </p>
+                    <p>
+                        <strong class="text-slate-800">Address:</strong><br>
+                        Office 210, Al Noor Tower,<br>
+                        Khalifa Street, Mussafah,<br>
+                        Abu Dhabi, United Arab Emirates
+                    </p>
+                    <p>
+                        <strong class="text-slate-800">Phone:</strong><br>
+                        +971 2 555 7890
+                    </p>
+                    <p>
+                        <strong class="text-slate-800">Email:</strong><br>
+                        support@xyztech.ae
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+ 
+        <!-- ================= GOOGLE MAP (SATELLITE / LAND VIEW) ================= -->
+        <div class="bg-white rounded-2xl shadow-md p-6 sm:p-8">
+            <h2 class="text-xl font-semibold text-slate-800 mb-4">
+                Our Location
+            </h2>
+
+            <div class="w-full h-[400px] rounded-xl overflow-hidden">
+                <iframe
+                    src="https://www.google.com/maps?q=Mussafah,Abu%20Dhabi&output=embed&t=k"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

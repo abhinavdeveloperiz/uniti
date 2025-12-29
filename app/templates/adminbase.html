@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 ,maximum-scale=1.0">
-    <title>{% block title %}UNITI ADMIN{% endblock %}</title>
+    <title>{% block title %}Jobservo{% endblock %}</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -70,7 +70,7 @@
             </ul>
 
             <!-- Logout -->
-            <a href="" class="inline-flex items-center gap-2 border px-6 py-2 rounded-lg text-sm font-medium
+            <a href="{% url 'candidate-logout' %}" class="inline-flex items-center gap-2 border px-6 py-2 rounded-lg text-sm font-medium
                       text-white bg-red-500 hover:bg-red-600 transition">
                 <i data-lucide="log-out" class="w-4 h-4"></i>
                 <span>Logout</span>
@@ -132,7 +132,7 @@
 
 
     <!-- ===================== FOOTER ===================== -->
-    <footer class="hidden md:block text-center py-6 border-t mt-12 text-gray-600">
+    <footer class="hidden md:block text-center py-6 border-t text-gray-600">
         © {% now 'Y' %} UNITI. All rights reserved.
     </footer>
 
