@@ -22,90 +22,66 @@
         </div>
 
         <!-- Job List -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border">
-
-            <!-- Table Header -->
-            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-100 text-sm font-semibold text-gray-600">
-                <div class="col-span-3">Job</div>
-                <div class="col-span-2">Category</div>
-                <div class="col-span-2">Location</div>
-                <div class="col-span-1">Type</div>
-                <div class="col-span-1 text-center">Vacancies</div>
-                <div class="col-span-1 text-center">Applications</div>
-                <div class="col-span-2 text-right">Actions</div>
-            </div>
+        <div class="space-y-4">
 
             {% for job in jobs %}
-            <!-- Job Row -->
-            <div class="border-t px-6 py-4 hover:bg-gray-50 transition">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <!-- Job Card -->
+            <div class="bg-white border rounded-2xl shadow-sm p-4 sm:p-6 hover:shadow-md transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                    <!-- Job Info -->
-                    <div class="md:col-span-3">
-                        <h3 class="font-semibold text-gray-900">{{ job.title }}</h3>
+                <!-- Job Info -->
+                <div class="flex-1 flex flex-col sm:flex-row sm:items-center sm:gap-4 w-full">
+                    <div class="flex-shrink-0 mb-3 sm:mb-0">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-600 text-white font-bold rounded-xl flex items-center justify-center text-lg">
+                            {{ job.company|slice:":1"|upper }}
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900">{{ job.title }}</h3>
                         <p class="text-sm text-gray-500">{{ job.company }}</p>
-                        <p class="text-xs text-gray-400 mt-1">
-                            Posted {{ job.created_at|date:"d M Y" }}
-                        </p>
+                        <p class="text-xs text-gray-400 mt-1">Posted {{ job.created_at|date:"d M Y" }}</p>
+
+                        <div class="flex flex-wrap gap-2 mt-2 text-sm text-gray-600">
+                            <span class="px-2 py-1 bg-gray-100 rounded-full">{{ job.category.name }}</span>
+                            <span class="px-2 py-1 bg-gray-100 rounded-full">{{ job.location }}</span>
+                            <span class="px-2 py-1 rounded-full
+                                {% if job.job_type == 'remote' %}bg-green-100 text-green-700
+                                {% elif job.job_type == 'hybrid' %}bg-blue-100 text-blue-700
+                                {% else %}bg-purple-100 text-purple-700{% endif %}">
+                                {{ job.get_job_type_display }}
+                            </span>
+                        </div>
                     </div>
+                </div>
 
-                    <!-- Category -->
-                    <div class="md:col-span-2 text-sm text-gray-700">
-                        {{ job.category.name }}
-                    </div>
+                <!-- Stats & Actions -->
+                <div class="flex flex-col sm:items-end gap-2">
+                    <p class="text-xs text-gray-500">
+                        Vacancies: {{ job.vacancies }} · Applicants: {{ job.applications.count }}
+                    </p>
 
-                    <!-- Location -->
-                    <div class="md:col-span-2 text-sm text-gray-700">
-                        {{ job.location }}
-                    </div>
-
-                    <!-- Job Type -->
-                    <div class="md:col-span-1">
-                        <span class="px-3 py-1 rounded-full text-xs font-medium
-                            {% if job.job_type == 'remote' %}bg-green-100 text-green-700
-                            {% elif job.job_type == 'hybrid' %}bg-blue-100 text-blue-700
-                            {% else %}bg-purple-100 text-purple-700{% endif %}">
-                            {{ job.get_job_type_display }}
-                        </span>
-                    </div>
-
-                    <!-- Vacancies -->
-                    <div class="md:col-span-1 text-center font-medium">
-                        {{ job.vacancies }}
-                    </div>
-
-                    <!-- Applications -->
-                    <div class="md:col-span-1 text-center font-medium text-indigo-600">
-                        {{ job.applications.count }}
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="md:col-span-2 flex md:justify-end gap-2">
-
+                    <div class="flex gap-2 mt-2">
                         <!-- View -->
                         <a href="{% url 'admin-jobdetails' %}?id={{ job.id }}" title="View Job"
-                            class="p-2 rounded-lg hover:bg-gray-200 transition">
-                            <i data-lucide="eye" class="w-6 h-6 text-blue-600"></i>
+                            class="p-2 rounded-lg hover:bg-gray-100 transition">
+                            <i data-lucide="eye" class="w-5 h-5 text-blue-600"></i>
                         </a>
 
                         <!-- Edit -->
                         <a href="{% url 'admin-jobedit' %}?id={{ job.id }}" title="Edit Job"
-                            class="p-2 rounded-lg hover:bg-gray-200 transition">
-                            <i data-lucide="edit-3" class="w-6 h-6 text-green-600"></i>
+                            class="p-2 rounded-lg hover:bg-gray-100 transition">
+                            <i data-lucide="edit-3" class="w-5 h-5 text-green-600"></i>
                         </a>
 
                         <!-- Delete -->
                         <a href="{% url 'admin-jobdelete' %}?id={{ job.id }}" title="Delete Job"
                             onclick="return confirm('Delete this job?');"
-                            class="p-2 rounded-lg hover:bg-gray-200 transition">
-                            <i data-lucide="trash-2" class="w-6 h-6 text-red-600"></i>
+                            class="p-2 rounded-lg hover:bg-gray-100 transition">
+                            <i data-lucide="trash-2" class="w-5 h-5 text-red-600"></i>
                         </a>
-
                     </div>
-
-
-
                 </div>
+
             </div>
             {% empty %}
             <div class="px-6 py-10 text-center text-gray-500">
@@ -118,8 +94,5 @@
     </div>
 </div>
 
-<script>
-    lucide.createIcons();
-</script>
 
 {% endblock %}
