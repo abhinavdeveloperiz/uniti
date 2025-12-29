@@ -225,18 +225,40 @@ def AdminJobDelete(request):
 
 @login_required(login_url='candidate-login')
 def AdminAllApplications(request):
+    applications = JobApplication.objects.select_related("job", "candidate").order_by("-applied_at")
 
-    applications = JobApplication.objects.select_related(
-        "job", "candidate"
-    ).order_by("-applied_at")
+    # Filter by job title
+    job_filter = request.GET.get("job")
+    if job_filter and job_filter != "All":
+        applications = applications.filter(job__title=job_filter)
+
+    # Filter by status
+    status_filter = request.GET.get("status")
+    if status_filter and status_filter != "All":
+        applications = applications.filter(status=status_filter.lower())
+
+    # Search by candidate email or name
+    search_query = request.GET.get("search")
+    if search_query:
+        applications = applications.filter(
+            Q(candidate__email__icontains=search_query) |
+            Q(candidate__designation__icontains=search_query) |
+            Q(candidate__education__icontains=search_query)
+        )
+
 
     job_titles = Job.objects.values_list('title', flat=True).distinct()
-    
+
     context = {
         "applications": applications,
         "job_titles": job_titles,
+        "status_choices": JobApplication.status_choices,
+        "selected_job": job_filter or "All",
+        "selected_status": status_filter or "All",
+        "search_query": search_query or "",
     }
     return render(request, "admin/applications.html", context)
+
 
 
 
@@ -270,6 +292,12 @@ def admin_job_application_detail(request, application_id):
 
 
 
+
+def AdminDeleteApplication(request, application_id):
+    application=get_object_or_404(JobApplication, id=application_id)
+    application.delete()
+    messages.success(request, "Application deleted successfully.")
+    return redirect("admin-applications")
 
 # ---------------------------------------------------------------------------
 

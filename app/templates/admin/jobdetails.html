@@ -117,7 +117,7 @@
                     {% if job.applications.exists %}
                         <div class="space-y-3 max-h-64 overflow-y-auto">
                             {% for application in job.applications.all %}
-                                <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                                <a href="{% url 'admin-applications-details' application.id %}" class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
                                     <div>
                                         <p class="font-medium text-sm">{{ application.candidate.email }}</p>
                                         <p class="text-xs text-slate-500">
@@ -127,7 +127,7 @@
                                     <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">
                                         Applied
                                     </span>
-                                </div>
+                                </a>
                             {% endfor %}
                         </div>
                     {% else %}

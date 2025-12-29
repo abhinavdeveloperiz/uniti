@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/jobdelete/',views.AdminJobDelete, name='admin-jobdelete'),
     path('admin/applications/',views.AdminAllApplications,name='admin-applications'),
     path('admin/applications/<int:application_id>/',views.admin_job_application_detail,name='admin-applications-details'),
+    path('admin/applications/<int:application_id>/delete/',views.AdminDeleteApplication,name='admin-application-delete'),
 
 
 
