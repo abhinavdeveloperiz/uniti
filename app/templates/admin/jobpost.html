@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <a href="{% url 'admin-joblist' %}"
-                   class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-sm font-medium text-white">
+                    class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-sm font-medium text-white">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
                 </a>
             </div>
@@ -38,33 +38,40 @@
                     <div>
                         <label class="block text-sm font-semibold mb-1">Job Title *</label>
                         <input type="text" name="title" required
-                               class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500">
+                            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500">
                     </div>
 
                     <!-- Company -->
                     <div>
                         <label class="block text-sm font-semibold mb-1">Company *</label>
                         <input type="text" name="company" required
-                               class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500">
+                            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500">
                     </div>
 
                     <!-- Category & Job Type -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                         <div>
                             <label class="block text-sm font-semibold mb-1">Category *</label>
-                            <select name="category" required
-                                    class="w-full px-4 py-3 border rounded-xl">
-                                <option value="">Select Category</option>
-                                {% for cat in categories %}
-                                <option value="{{ cat.id }}">{{ cat.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="relative flex items-center">
+                                <select name="category" required class="w-full px-4 py-3 pr-12 border rounded-xl">
+                                    <option value="">Select Category</option>
+                                    {% for cat in categories %}
+                                    <option value="{{ cat.id }}">{{ cat.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <a href="{% url 'admin-job_category_add' %}"
+                                    class="absolute right-3 text-indigo-600 hover:text-indigo-800 me-2" title="Add Category">
+                                    <i data-lucide="plus-circle" class="w-6 h-6"></i>
+                                </a>
+                            </div>
                         </div>
+
+
 
                         <div>
                             <label class="block text-sm font-semibold mb-1">Job Type *</label>
-                            <select name="job_type" required
-                                    class="w-full px-4 py-3 border rounded-xl">
+                            <select name="job_type" required class="w-full px-4 py-3 border rounded-xl">
                                 <option value="">Select Job Type</option>
                                 <option value="remote">Remote</option>
                                 <option value="hybrid">Hybrid</option>
@@ -77,14 +84,13 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold mb-1">Location *</label>
-                            <input type="text" name="location" required
-                                   class="w-full px-4 py-3 border rounded-xl">
+                            <input type="text" name="location" required class="w-full px-4 py-3 border rounded-xl">
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold mb-1">Vacancies *</label>
                             <input type="number" name="positions" min="1" required
-                                   class="w-full px-4 py-3 border rounded-xl">
+                                class="w-full px-4 py-3 border rounded-xl">
                         </div>
                     </div>
 
@@ -92,7 +98,7 @@
                     <div>
                         <label class="block text-sm font-semibold mb-1">Experience *</label>
                         <input type="text" name="experience" placeholder="e.g. 2–5 Years"
-                               class="w-full px-4 py-3 border rounded-xl">
+                            class="w-full px-4 py-3 border rounded-xl">
                     </div>
                 </div>
             </div>
@@ -102,7 +108,7 @@
                 <h2 class="text-lg font-bold text-gray-900 mb-4">Job Description</h2>
 
                 <textarea name="full_description" rows="5" required
-                          class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500"></textarea>
+                    class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500"></textarea>
             </div>
 
             <!-- REQUIREMENTS -->
@@ -113,17 +119,15 @@
                     <div>
                         <label class="block text-sm font-semibold mb-1">Required Qualification *</label>
                         <textarea name="requirements" rows="3" required
-                                  class="w-full px-4 py-3 border rounded-xl"></textarea>
+                            class="w-full px-4 py-3 border rounded-xl"></textarea>
                     </div>
 
                     <div>
                         <label class="block text-sm font-semibold mb-1">
                             Skills (comma-separated, max 5) *
                         </label>
-                        <input type="text" name="skills"
-                               placeholder="Python, Django, REST, SQL, Git"
-                               required
-                               class="w-full px-4 py-3 border rounded-xl">
+                        <input type="text" name="skills" placeholder="Python, Django, REST, SQL, Git" required
+                            class="w-full px-4 py-3 border rounded-xl">
                     </div>
                 </div>
             </div>
@@ -131,7 +135,7 @@
             <!-- SUBMIT -->
             <div class="flex justify-end">
                 <button type="submit"
-                        class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold shadow-md hover:opacity-90">
+                    class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold shadow-md hover:opacity-90">
                     Publish Job
                 </button>
             </div>

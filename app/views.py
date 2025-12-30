@@ -75,12 +75,8 @@ def AdminJoblist(request):
 
 
 
-@login_required
+@login_required(login_url='candidate-login')
 def AdminJobpost(request):
-    # Only admin / superuser protection
-    if not request.user.is_superuser:
-        messages.error(request, "Unauthorized access.")
-        return redirect("candidate-login")
 
     categories = JobCategory.objects.only("name")
 
@@ -184,10 +180,7 @@ def AdminJobEdit(request):
 
 @login_required(login_url='candidate-login')
 def AdminJobDetails(request):
-    if not request.user.is_superuser:
-        messages.error(request, "Unauthorized access.")
-        return redirect("candidate-login")
-
+  
     job_id = request.GET.get("id")
     job = get_object_or_404(
         Job.objects.select_related("category", "posted_by")
@@ -197,7 +190,7 @@ def AdminJobDetails(request):
 
     # Create skills list for template
     skills_list = [job.skill_1, job.skill_2, job.skill_3, job.skill_4, job.skill_5]
-    skills_list = [skill for skill in skills_list if skill]  # Filter out None/empty values
+    skills_list = [skill for skill in skills_list if skill]  
 
     return render(request, "admin/jobdetails.html", {
         "job": job,
@@ -237,7 +230,6 @@ def AdminAllApplications(request):
     if status_filter and status_filter != "All":
         applications = applications.filter(status=status_filter.lower())
 
-    # Search by candidate email or name
     search_query = request.GET.get("search")
     if search_query:
         applications = applications.filter(
