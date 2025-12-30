@@ -218,19 +218,18 @@ def AdminJobDelete(request):
 
 @login_required(login_url='candidate-login')
 def AdminAllApplications(request):
-    applications = JobApplication.objects.select_related("job", "candidate").order_by("-applied_at")
+    applications = JobApplication.objects.select_related("job", "candidate", "job__category").order_by("-applied_at")
 
-    # Filter by job title
-    job_filter = request.GET.get("job")
-    if job_filter and job_filter != "All":
-        applications = applications.filter(job__title=job_filter)
-
-    # Filter by status
+    category_filter = request.GET.get("category")
     status_filter = request.GET.get("status")
+    search_query = request.GET.get("search")
+
+    if category_filter and category_filter != "All":
+        applications = applications.filter(job__category_id=category_filter)
+
     if status_filter and status_filter != "All":
         applications = applications.filter(status=status_filter.lower())
 
-    search_query = request.GET.get("search")
     if search_query:
         applications = applications.filter(
             Q(candidate__email__icontains=search_query) |
@@ -238,20 +237,18 @@ def AdminAllApplications(request):
             Q(candidate__education__icontains=search_query)
         )
 
-
-    job_titles = Job.objects.values_list('title', flat=True).distinct()
+    categories = JobCategory.objects.all()
 
     context = {
         "applications": applications,
-        "job_titles": job_titles,
+        "categories": categories,
         "status_choices": JobApplication.status_choices,
-        "selected_job": job_filter or "All",
+        "selected_category": category_filter or "All",
         "selected_status": status_filter or "All",
         "search_query": search_query or "",
     }
+
     return render(request, "admin/applications.html", context)
-
-
 
 
 
@@ -436,7 +433,6 @@ def CandidateJoblist(request):
         .prefetch_related('applications') \
         .order_by('-created_at')
 
-    # ---------------- SEARCH ----------------
     search = request.GET.get('search')
     if search:
         jobs = jobs.filter(
@@ -462,8 +458,7 @@ def CandidateJoblist(request):
     if location:
         jobs = jobs.filter(location__icontains=location)
 
-    # ---------------- PAGINATION ----------------
-    paginator = Paginator(jobs, 20)  # 6 jobs per page
+    paginator = Paginator(jobs, 20) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -553,25 +548,20 @@ def CandidateJobApply(request, job_id):
 
 @login_required(login_url='candidate-login')
 def CandidateJobAppliedList(request):
-    applications = JobApplication.objects.select_related(
-        'job',
-        'job__category'
-    ).filter(
-        candidate=request.user
-    ).order_by('-applied_at')
-
-    # Count by status for the stats bar
-    total_applied = applications.count()
-    in_review = applications.filter(status='in_review').count()
-    shortlisted = applications.filter(status='shortlisted').count()
-    rejected = applications.filter(status='rejected').count()
+    applications = (
+        JobApplication.objects
+        .select_related('job', 'job__category')
+        .filter(candidate=request.user)
+        .order_by('-applied_at')
+    )
 
     context = {
         "applications": applications,
-        "total_applied": total_applied,
-        "in_review": in_review,
-        "shortlisted": shortlisted,
-        "rejected": rejected,
+        "total_applications": applications.count(),
+        "reviewed_count": applications.filter(status='reviewed').count(),
+        "shortlisted_count": applications.filter(status='shortlisted').count(),
+        "rejected_count": applications.filter(status='rejected').count(),
+        "hired_count": applications.filter(status='hired').count(),
     }
 
     return render(request, 'candidate/jobappliedlist.html', context)

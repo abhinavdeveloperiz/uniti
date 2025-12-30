@@ -14,39 +14,58 @@
     </div>
 
     <!-- ===================== STATS BAR ===================== -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
+
+      
+
+        <!-- Applied -->
         <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 text-center">
-            <p class="text-sm text-gray-600">Total Applied</p>
-            <p class="text-2xl font-bold text-blue-600">{{ total_applied }}</p>
+            <p class="text-sm text-gray-600">Applied</p>
+            <p class="text-2xl font-bold text-blue-600">{{ total_applications }}</p>
         </div>
+
+        <!-- Reviewed -->
         <div class="bg-yellow-50 border border-yellow-100 rounded-xl p-5 text-center">
-            <p class="text-sm text-gray-600">In Review</p>
-            <p class="text-2xl font-bold text-yellow-600">{{ in_review }}</p>
+            <p class="text-sm text-gray-600">Reviewed</p>
+            <p class="text-2xl font-bold text-yellow-600">{{ reviewed_count }}</p>
         </div>
+
+        <!-- Shortlisted -->
         <div class="bg-green-50 border border-green-100 rounded-xl p-5 text-center">
             <p class="text-sm text-gray-600">Shortlisted</p>
-            <p class="text-2xl font-bold text-green-600">{{ shortlisted }}</p>
+            <p class="text-2xl font-bold text-green-600">{{ shortlisted_count }}</p>
         </div>
+
+        <!-- Rejected -->
         <div class="bg-red-50 border border-red-100 rounded-xl p-5 text-center">
             <p class="text-sm text-gray-600">Rejected</p>
-            <p class="text-2xl font-bold text-red-600">{{ rejected }}</p>
+            <p class="text-2xl font-bold text-red-600">{{ rejected_count }}</p>
         </div>
+
+        <!-- Hired -->
+        <div class="bg-purple-50 border border-purple-100 rounded-xl p-5 text-center">
+            <p class="text-sm text-gray-600">Hired</p>
+            <p class="text-2xl font-bold text-purple-600">{{ hired_count }}</p>
+        </div>
+
     </div>
 
     <!-- ===================== APPLIED JOB LIST ===================== -->
     <div class="space-y-5">
         {% for application in applications %}
         {% with job=application.job %}
-        <div class="border rounded-2xl p-6 transition-all duration-300 
-                    {% if application.status == 'in_review' %} bg-yellow-50 border-yellow-100
-                    {% elif application.status == 'shortlisted' %} bg-green-50 border-green-100
-                    {% elif application.status == 'rejected' %} bg-red-50 border-red-100 opacity-90
-                    {% else %} bg-blue-50 border-blue-100 {% endif %}">
+        <div class="border rounded-2xl p-6 transition-all duration-300
+            {% if application.status == 'applied' %} bg-blue-50 border-blue-100
+            {% elif application.status == 'reviewed' %} bg-yellow-50 border-yellow-100
+            {% elif application.status == 'shortlisted' %} bg-green-50 border-green-100
+            {% elif application.status == 'rejected' %} bg-red-50 border-red-100 opacity-90
+            {% elif application.status == 'hired' %} bg-purple-50 border-purple-100
+            {% endif %}
+        ">
             <div class="flex flex-col md:flex-row gap-5">
 
                 <!-- Company Logo -->
-                <div
-                    class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md flex-shrink-0">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md flex-shrink-0">
                     {{ job.company|slice:":1"|upper }}
                 </div>
 
@@ -57,42 +76,65 @@
                             <p class="text-sm text-gray-600 mt-1 font-medium">{{ job.company }}</p>
                         </div>
 
-                        <!-- Application Status -->
+                        <!-- Application Status Badge -->
                         <span class="text-xs px-4 py-1.5 rounded-full font-semibold
-                                    {% if application.status == 'in_review' %} bg-yellow-100 text-yellow-700
-                                    {% elif application.status == 'shortlisted' %} bg-green-100 text-green-700
-                                    {% elif application.status == 'rejected' %} bg-red-100 text-red-700
-                                    {% else %} bg-blue-100 text-blue-700 {% endif %}">
+                            {% if application.status == 'applied' %} bg-blue-100 text-blue-700
+                            {% elif application.status == 'reviewed' %} bg-yellow-100 text-yellow-700
+                            {% elif application.status == 'shortlisted' %} bg-green-100 text-green-700
+                            {% elif application.status == 'rejected' %} bg-red-100 text-red-700
+                            {% elif application.status == 'hired' %} bg-purple-100 text-purple-700
+                            {% endif %}
+                        ">
                             {{ application.get_status_display }}
                         </span>
                     </div>
 
-                    <!-- Location & Date -->
+                    <!-- Location & Applied Date -->
                     <div class="flex flex-wrap gap-5 text-sm text-gray-600 mt-4">
                         <span class="flex items-center gap-2">
                             <i data-lucide="map-pin"
-                                class="w-4 h-4 {% if application.status == 'shortlisted' %}text-green-600{% elif application.status == 'in_review' %}text-yellow-600{% elif application.status == 'rejected' %}text-red-600{% else %}text-blue-600{% endif %}"></i>
+                                class="w-4 h-4
+                                {% if application.status == 'applied' %} text-blue-600
+                                {% elif application.status == 'reviewed' %} text-yellow-600
+                                {% elif application.status == 'shortlisted' %} text-green-600
+                                {% elif application.status == 'rejected' %} text-red-600
+                                {% elif application.status == 'hired' %} text-purple-600
+                                {% endif %}"></i>
                             <span class="font-medium">{{ job.location }}</span>
                         </span>
                         <span class="flex items-center gap-2">
                             <i data-lucide="calendar"
-                                class="w-4 h-4 {% if application.status == 'shortlisted' %}text-green-600{% elif application.status == 'in_review' %}text-yellow-600{% elif application.status == 'rejected' %}text-red-600{% else %}text-blue-600{% endif %}"></i>
-                            <span class="font-medium">Applied on {{ application.applied_at|date:"d M Y" }}</span>
+                                class="w-4 h-4
+                                {% if application.status == 'applied' %} text-blue-600
+                                {% elif application.status == 'reviewed' %} text-yellow-600
+                                {% elif application.status == 'shortlisted' %} text-green-600
+                                {% elif application.status == 'rejected' %} text-red-600
+                                {% elif application.status == 'hired' %} text-purple-600
+                                {% endif %}"></i>
+                            <span class="font-medium">
+                                Applied on {{ application.applied_at|date:"d M Y, H:i A" }}
+                            </span>
                         </span>
                     </div>
 
                     <!-- Footer -->
                     <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 flex-wrap gap-4">
                         <p class="text-xs text-gray-500 flex items-center gap-2">
-                            {% if application.status == 'shortlisted' %}
-                            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-green-600"></i>
-                            Employer shortlisted your profile
-                            {% elif application.status == 'in_review' %}
-                            <i data-lucide="clock" class="w-3.5 h-3.5 text-yellow-600"></i>
-                            Application under employer review
+                            {% if application.status == 'applied' %}
+                                <i data-lucide="send" class="w-3.5 h-3.5 text-blue-600"></i>
+                                Application submitted successfully
+                            {% elif application.status == 'reviewed' %}
+                                <i data-lucide="clock" class="w-3.5 h-3.5 text-yellow-600"></i>
+                                Application under review
+                            {% elif application.status == 'shortlisted' %}
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-green-600"></i>
+                                Employer shortlisted your profile
                             {% elif application.status == 'rejected' %}
-                            <i data-lucide="x-circle" class="w-3.5 h-3.5 text-red-600"></i>
-                            Application was not selected
+                                <i data-lucide="x-circle" class="w-3.5 h-3.5 text-red-600"></i>
+                                Application was not selected
+                            {% elif application.status == 'hired' %}
+                                <i data-lucide="award" class="w-3.5 h-3.5 text-purple-600"></i>
+                                Congratulations! You have been hired
                             {% endif %}
                         </p>
 
@@ -100,16 +142,15 @@
                         <p class="text-xs text-gray-500">
                             <strong>Notes:</strong>
                             {% if application.notes %}
-                            {{ application.notes }}
+                                {{ application.notes }}
                             {% else %}
-                            No notes yet
+                                No notes yet
                             {% endif %}
                         </p>
 
-
                         <div class="flex gap-3">
                             <a href="{% url 'candidate-jobdetail' job.id %}"
-                                class="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                               class="border border-gray-300 hover:border-blue-600 hover:text-blue-600 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                 View Job
                             </a>
                         </div>
@@ -123,7 +164,5 @@
         {% endfor %}
     </div>
 </div>
-
-
 
 {% endblock %}

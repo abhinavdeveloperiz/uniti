@@ -1,42 +1,43 @@
 {% extends 'adminbase.html' %}
 {% block title %}Applications{% endblock %}
-{% block content %}
 
+{% block content %}
 <div class="min-h-screen bg-slate-50 px-4 sm:px-6 py-6">
     <div class="max-w-7xl mx-auto space-y-6">
 
         <!-- ================= HEADER ================= -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
-                    Job Applications
-                </h1>
-                <p class="text-sm text-slate-500 mt-1">
-                    Review and manage candidate applications
-                </p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 uppercase">Job Applications</h1>
+                <p class="text-sm text-slate-500 mt-1">Review and manage candidate applications</p>
             </div>
-
             <div class="text-sm text-slate-500">
                 Total Applications: <span class="font-semibold text-slate-900">{{ applications|length }}</span>
             </div>
         </div>
 
         <!-- ================= FILTER BAR ================= -->
-        <form method="get" class="bg-white rounded-xl border shadow-sm p-4 flex flex-wrap gap-3 items-center justify-between">
+        <form method="get"
+            class="bg-white rounded-xl border shadow-sm p-4 flex flex-wrap gap-3 items-center justify-between">
+
             <div class="flex gap-3 flex-wrap">
-                <!-- Job Filter -->
-                <select name="job" class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
-                    <option value="All" {% if selected_job == "All" %}selected{% endif %}>All Jobs</option>
-                    {% for job in job_titles %}
-                        <option value="{{ job }}" {% if selected_job == job %}selected{% endif %}>{{ job }}</option>
+                <!-- Category Filter -->
+                <select name="category"
+                    class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    <option value="All" {% if selected_category|stringformat:"s" == "All" %}selected{% endif %}>All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" {% if selected_category|stringformat:"s" == category.id|stringformat:"s" %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
                     {% endfor %}
                 </select>
 
                 <!-- Status Filter -->
-                <select name="status" class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
+                <select name="status"
+                    class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
                     <option value="All" {% if selected_status == "All" %}selected{% endif %}>All Status</option>
                     {% for key, label in status_choices %}
-                        <option value="{{ key }}" {% if selected_status == key %}selected{% endif %}>{{ label }}</option>
+                    <option value="{{ key }}" {% if selected_status == key %}selected{% endif %}>{{ label }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -45,73 +46,89 @@
             <input type="text" name="search" placeholder="Search candidate..." value="{{ search_query }}"
                 class="border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 w-full sm:w-64">
 
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+            <button type="submit"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
                 Apply
             </button>
         </form>
 
         <!-- ================= APPLICATION LIST ================= -->
-        <div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
-
-            <!-- Table Header -->
-            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-slate-100 text-xs font-semibold text-slate-600 uppercase">
-                <div class="col-span-3">Candidate</div>
-                <div class="col-span-3">Job & Company</div>
-                <div class="col-span-2">Applied On</div>
-                <div class="col-span-2">Status</div>
-                <div class="col-span-2 text-right">Action</div>
-            </div>
+        <div class="space-y-4">
 
             {% for app in applications %}
-            <!-- Application Row -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 border-t hover:bg-slate-50 transition ">
+            <!-- Card for mobile -->
+            <div class="bg-white rounded-2xl border shadow-sm p-4 md:hidden">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold text-slate-900">{{ app.candidate.email }}</p>
+                        {% if app.candidate.designation %}
+                        <p class="text-xs text-slate-500 mt-1">{{ app.candidate.designation }}</p>
+                        {% endif %}
+                        <p class="text-sm text-slate-600 mt-1">{{ app.job.title }} - {{ app.job.company }}</p>
+                        <p class="text-sm text-slate-600 mt-1">{{ app.applied_at|date:"M d, Y H:i" }}</p>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <!-- Status Badge -->
+                        {% if app.status == 'applied' %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Applied</span>
+                        {% elif app.status == 'reviewed' %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Reviewed</span>
+                        {% elif app.status == 'shortlisted' %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">Shortlisted</span>
+                        {% elif app.status == 'rejected' %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Rejected</span>
+                        {% elif app.status == 'hired' %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">Hired</span>
+                        {% endif %}
 
-                <!-- Candidate -->
-                <div class="md:col-span-3">
-                    <p class="font-semibold text-slate-900">{{ app.candidate.email }}</p>
+                        <a href="{% url 'admin-applications-details' app.id %}" class="mt-2 text-blue-600 text-sm hover:underline flex items-center gap-1">
+                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Job & Company -->
-                <div class="md:col-span-3">
+            <!-- Table row for desktop -->
+            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-5 border-t hover:bg-slate-50 transition items-center bg-white rounded-xl">
+                <div class="col-span-2">
+                    <p class="font-semibold text-slate-900">{{ app.candidate.email }}</p>
+                    {% if app.candidate.designation %}
+                    <p class="text-xs text-slate-500 mt-1">{{ app.candidate.designation }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-span-3">
                     <p class="font-medium text-slate-900">{{ app.job.title }}</p>
                     <p class="text-sm text-slate-500">{{ app.job.company }}</p>
                 </div>
-
-                <!-- Date -->
-                <div class="md:col-span-2">
-                    <p class="text-sm text-slate-600">{{ app.applied_at|date:"M d, Y" }}</p>
+                <div class="col-span-2">
+                    <p class="text-sm text-slate-600">{{ app.applied_at|date:"M d, Y H:i" }}</p>
                 </div>
-
-                <!-- Status -->
-                <div class="md:col-span-2">
+                <div class="col-span-2">
                     {% if app.status == 'applied' %}
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Applied</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Applied</span>
                     {% elif app.status == 'reviewed' %}
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Reviewed</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Reviewed</span>
                     {% elif app.status == 'shortlisted' %}
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">Shortlisted</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">Shortlisted</span>
                     {% elif app.status == 'rejected' %}
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Rejected</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Rejected</span>
                     {% elif app.status == 'hired' %}
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">Hired</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">Hired</span>
                     {% endif %}
                 </div>
-
-                <!-- Action -->
-                <div class="md:col-span-2 md:text-right flex md:justify-end">
+                <div class="col-span-3 text-right flex justify-end">
                     <a href="{% url 'admin-applications-details' app.id %}" class="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:underline">
                         View Details
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
             </div>
+
             {% empty %}
             <p class="text-center text-slate-500 py-6">No applications found.</p>
             {% endfor %}
 
         </div>
-
     </div>
 </div>
-
 {% endblock %}

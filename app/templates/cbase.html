@@ -23,7 +23,9 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        body ,html{
+
+        body,
+        html {
             margin: 0;
             padding: 0;
 
@@ -41,27 +43,40 @@
             <div class="flex items-center gap-3">
                 <img src="https://goridemoto.com/wp-content/uploads/2022/09/logo4.png" alt="UNITI Candidate"
                     class="h-9 w-auto object-contain">
-
             </div>
-
 
             <!-- Menu -->
             <ul class="flex items-center gap-8 text-sm font-medium uppercase">
 
                 <li>
-                    <a href="{% url 'candidate-joblist' %}" class="hover:text-gray-500 transition">Jobs</a>
+                    <a href="{% url 'candidate-joblist' %}"
+                        class="flex items-center gap-2 hover:text-gray-500 transition">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                        Jobs
+                    </a>
                 </li>
+
                 <li>
-                    <a href="{% url 'candidate-jobappliedlist' %}" class="hover:text-gray-500 transition">Applied</a>
+                    <a href="{% url 'candidate-jobappliedlist' %}"
+                        class="flex items-center gap-2 hover:text-gray-500 transition">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                        Applied
+                    </a>
                 </li>
+
                 <li>
-                    <a href="{% url 'candidate-contact' %}" class="hover:text-gray-500 transition">Contact</a>
+                    <a href="{% url 'candidate-contact' %}"
+                        class="flex items-center gap-2 hover:text-gray-500 transition">
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
+                        Contact
+                    </a>
                 </li>
+
             </ul>
 
-            <!-- Logout -->
-            <a href="{% url 'candidate-profile' %}" class="inline-flex items-center gap-2 rounded-full border-2 hover:bg-red-500 hover:text-white border-red-400
-          text-red-500 transition">
+            <!-- Profile -->
+            <a href="{% url 'candidate-profile' %}" class="inline-flex items-center justify-center rounded-full border-2
+                  border-red-400 text-red-500 hover:bg-red-500 hover:text-white transition">
                 <i data-lucide="user" class="w-8 h-8"></i>
             </a>
 
@@ -112,7 +127,7 @@
                 </a>
             </li>
 
-          
+
 
         </ul>
     </nav>
